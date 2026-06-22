@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguyên Tắc Làm Việc — HR Team PATI Group</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a1a1a;
+            font-size: 36px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        /* HERO BOX */
+        .hero-box {
+            background: #10b981;
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+        }
+
+        .hero-box .formula {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-box .description {
+            font-size: 14px;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        /* SECTION — COLLAPSIBLE CARD */
+        .section {
+            margin-bottom: 12px;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+
+        .section:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        .section-header {
+            background: #f8f8f8;
+            padding: 18px 25px;
+            font-weight: 600;
+            font-size: 16px;
+            color: #1a1a1a;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+            user-select: none;
+            border-left: 4px solid #10b981;
+        }
+
+        .section-header:hover {
+            background: #f0faf6;
+        }
+
+        .section.active .section-header {
+            background: #f0faf6;
+            color: #10b981;
+        }
+
+        .section-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .rule-number {
+            background: #10b981;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .rule-title-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rule-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #10b981;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .rule-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .section.active .rule-name {
+            color: #10b981;
+        }
+
+        .toggle-icon {
+            font-size: 18px;
+            color: #10b981;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+
+        .section.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        /* CONTENT */
+        .section-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.3s ease-out;
+        }
+
+        .section.active .section-content {
+            max-height: 3000px;
+            padding: 25px;
+        }
+
+        .content-body {
+            font-size: 13px;
+            color: #444;
+            line-height: 1.7;
+        }
+
+        .content-body p {
+            margin-bottom: 10px;
+        }
+
+        .content-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* DO / DON'T ROWS */
+        .do-dont {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .do-box, .dont-box {
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .do-box {
+            background: #f0faf6;
+            border-left: 3px solid #10b981;
+        }
+
+        .dont-box {
+            background: #fff5f5;
+            border-left: 3px solid #ef4444;
+        }
+
+        .do-box .label {
+            font-weight: 700;
+            color: #10b981;
+            margin-bottom: 4px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .dont-box .label {
+            font-weight: 700;
+            color: #ef4444;
+            margin-bottom: 4px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        /* HIGHLIGHT BOX */
+        .highlight {
+            background: #fffbeb;
+            border-left: 3px solid #f59e0b;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #444;
+            margin-top: 16px;
+            line-height: 1.6;
+        }
+
+        .highlight strong {
+            color: #b45309;
+        }
+
+        /* BOTTOM MANTRA */
+        .mantra-box {
+            background: #1a1a1a;
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .mantra-box .mantra-text {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .mantra-box .mantra-sub {
+            font-size: 13px;
+            color: #aaa;
+        }
+
+        /* FOOTER */
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e5e5e5;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            h1 { font-size: 26px; }
+            .container { padding: 20px; }
+            .section-header { padding: 14px 16px; }
+            .section.active .section-content { padding: 16px; }
+            .do-dont { grid-template-columns: 1fr; }
+            .rule-name { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <h1>📋 NGUYÊN TẮC LÀM VIỆC</h1>
+        <div class="subtitle">HR Team · PATI Group · Áp dụng từ ngày đầu tiên</div>
+
+        <div class="hero-box">
+            <div class="formula">9 nguyên tắc này không phải để đọc cho biết — mà để sống mỗi ngày trong công việc.</div>
+            <div class="description">Vi phạm bất kỳ nguyên tắc nào = vi phạm cam kết với team và với chính mình.</div>
+        </div>
+
+        <!-- RULE 1 -->
+        <div class="section active">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-header-left">
+                    <div class="rule-number">1</div>
+                    <div class="rule-title-block">
+                        <span class="rule-label">Mindset</span>
+                        <span class="rule-name">OWNERSHIP — Lỗi ở mình, giải pháp ở mình</span>
+                    </div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="content-body">
+                    <p>Không có câu <strong>"tại vì", "bởi vì", "do anh/chị không nói rõ."</strong> Khi có vấn đề → nhìn vào mình trước, tìm cách fix, báo ngay. Sai sớm báo sớm tốt hơn sai muộn báo muộn.</p>
+                    <p>Tuyệt đối không có tư duy <strong>"chờ giao việc"</strong> hay <strong>"chờ bón quy trình"</strong>. Mọi tài liệu, SOPs (quy trình chuẩn) đều do chính các em nghiên cứu phối hợp với AI để tự đóng gói thành Playbook (tài liệu vận hành).</p>
+                    <div class="do-dont">
+                        <div class="do-box">
+                            <div class="label">✅ Đúng</div>
+                            "Em gặp vấn đề X. Em đã thử Y nhưng chưa được. Em đề xuất Z — chị có đồng ý không?"
+                        </div>
+                        <div class="dont-box">
+                            <div class="label">❌ Sai</div>
+                            "Chị ơi em phải làm sao?" — Đến tay không, không suy nghĩ trước.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RULE 2 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-header-left">
+                    <div class="rule-number">2</div>
+                    <div class="rule-title-block">
+                        <span class="rule-label">Chất lượng</span>
+                        <span class="rule-name">DONE = 100% — Không giao việc dở</span>
+                    </div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="content-body">
+                    <p>Output giao ra phải ở trạng thái <strong>Manager duyệt là xong</strong>, không cần chỉnh thêm.</p>
+                    <p><strong>99% = 0%.</strong> Một task làm xong nhưng sai format, trễ deadline 1 phút, hoặc stakeholder (người liên quan) không dùng được thì tính là chưa làm.</p>
+                    <p>Đầu ra của công việc phải là <strong>"Data sạch, sẵn sàng sử dụng".</strong></p>
+                    <div class="do-dont">
+                        <div class="do-box">
+                            <div class="label">✅ Đúng</div>
+                            File đúng tên chuẩn, link đã mở quyền, nội dung hoàn chỉnh — Manager nhận là dùng được ngay.
+                        </div>
+                        <div class="dont-box">
+                            <div class="label">❌ Sai</div>
+                            Giao file "chị xem thử rồi góp ý" — đây không phải Done, đây là chuyển việc cho người khác.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RULE 3 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-header-left">
+                    <div class="rule-number">3</div>
+                    <div class="rule-title-block">
+                        <span class="rule-label">Tư duy giải quyết vấn đề</span>
+                        <span class="rule-name">PROBLEM → SOLUTION — Đừng đến tay không</span>
+                    </div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="content-body">
+                    <p>Khi gặp vấn đề, đến gặp bất kỳ ai phải có đủ <strong>3 thứ:</strong></p>
+                    <div class="highlight">
+                        <strong>1 vấn đề rõ ràng</strong> + <strong>2–3 phương án</strong> + <strong>1 đề xuất của em</strong>
+                    </div>
+                    <div class="do-dont" style="margin-top: 16px;">
+                        <div class="do-box">
+                            <div class="label">✅ Đúng</div>
+                            "Em đang bị kẹt ở X. Em nghĩ có thể làm theo A, B hoặc C. Em đề xuất A vì... Chị confirm không?"
+                        </div>
+                        <div class="dont-box">
+                            <div class="label">❌ Sai</div>
+                            "Anh/chị ơi em phải làm sao?" — Không suy nghĩ trước, ném vấn đề cho người khác giải.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RULE 4 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-header-left">
+                    <div class="rule-number">4</div>
+                    <div class="rule-title-block">
+                        <span class="rule-label">Công nghệ</span>
+                        <span class="rule-name">AI FIRST — Hỏi AI trước khi hỏi người</span>
+                    </div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="content-body">
+                    <p>Bất kỳ task nào cũng tự hỏi: <strong>"AI nào làm được việc này thay mình?"</strong></p>
+                    <p>Dùng Claude / Gemini / GPT để draft (soạn thảo), research (nghiên cứu), format trước khi giao cho Manager review. <strong>Không dùng AI = làm chậm cả team.</strong></p>
+                    <div class="do-dont">
+                        <div class="do-box">
+                            <div class="label">✅ Đúng</div>
+                            Dùng AI draft JD → tự review → giao chị duyệt lần cuối. Tiết kiệm 80% thời gian soạn thảo.
+                        </div>
+                        <div class="dont-box">
+                            <div class="label">❌ Sai</div>
+                            Tự ngồi gõ từ đầu hoặc hỏi chị những thứ AI trả lời được trong 30 giây.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RULE 5 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-header-left">
+                    <div class="rule-number">5</div>
+                    <div class="rule-title-block">
+                        <span class="rule-label">Giao tiếp</span>
+                        <span class="rule-name">COMMUNICATE — Phản hồi nhanh, báo sớm</span>
+                    </div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="content-body">
+                    <p><strong>Trong giờ làm việc:</strong> mọi tin nhắn công việc phải được phản hồi dưới <strong>15 phút.</strong></p>
+                    <p>Nếu gặp sự cố hoặc kẹt việc → <strong>ping báo ngay lập tức.</strong> Không thể xử lý ngay → báo: <em>"Em nhận được, sẽ xử lý lúc X giờ."</em></p>
+                    <p><strong>Ngoài giờ làm việc:</strong> phản hồi sớm nhất có thể, không quá 12 tiếng.</p>
+                    <div class="highlight">
+                        <strong>⚠️ Mất liên lạc không có lý do = vi phạm nghiêm trọng.</strong> Đây không phải quy định về giờ giấc — đây là cam kết với team.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RULE 6 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-header-left">
+                    <div class="rule-number">6</div>
+                    <div class="rule-title-block">
+                        <span class="rule-label">Báo cáo</span>
+                        <span class="rule-name">SỐ ĐO ĐƯỢC — Không báo cáo bằng cảm giác</span>
+                    </div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="content-body">
+                    <p>Mọi kết quả công việc đều phải có <strong>con số cụ thể.</strong></p>
+                    <div class="do-dont">
+                        <div class="do-box">
+                            <div class="label">✅ Báo cáo đúng</div>
+                            "Em đăng 3 bài hôm nay, đạt 45 reach (lượt tiếp cận), thu về 7 CV. Đang thiếu 3 CV so với target (mục tiêu) ngày."
+                        </div>
+                        <div class="dont-box">
+                            <div class="label">❌ Không phải báo cáo</div>
+                            "Em đã đăng bài rồi." — Không có số = không có thông tin = không thể ra quyết định.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RULE 7 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-header-left">
+                    <div class="rule-number">7</div>
+                    <div class="rule-title-block">
+                        <span class="rule-label">Integrity · Chính trực</span>
+                        <span class="rule-name">DEADLINE LÀ CAM KẾT — Không phải ước tính</span>
+                    </div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="content-body">
+                    <p>Khi em nói <em>"xong thứ Tư"</em> → đó là <strong>cam kết, không phải dự đoán.</strong></p>
+                    <p>Nếu có rủi ro trễ → báo trước ít nhất <strong>12 tiếng,</strong> không báo sau khi đã trễ.</p>
+                    <div class="do-dont">
+                        <div class="do-box">
+                            <div class="label">✅ Đúng</div>
+                            "Chị ơi em đang gặp sự cố A, khả năng cao sẽ trễ đến chiều thứ Tư thay vì sáng. Chị có approve (chấp thuận) không?"
+                        </div>
+                        <div class="dont-box">
+                            <div class="label">❌ Sai</div>
+                            Thứ Tư qua đi, task chưa xong, không báo gì. Người nhận phải tự đi hỏi lại.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RULE 8 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-header-left">
+                    <div class="rule-number">8</div>
+                    <div class="rule-title-block">
+                        <span class="rule-label">Phát triển</span>
+                        <span class="rule-name">HỌC LIÊN TỤC — Mỗi tuần có 1 thứ mới</span>
+                    </div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="content-body">
+                    <p>Môi trường PATI thay đổi nhanh. Mỗi tuần phải có ít nhất <strong>1 tool, 1 cách làm, hoặc 1 insight (hiểu biết mới)</strong> đem vào công việc thực tế.</p>
+                    <p><strong>Đứng yên = đi lùi.</strong> Người không học là người đang từ từ trở nên thừa.</p>
+                    <div class="highlight">
+                        <strong>💡 Gợi ý thực tế:</strong> Cuối mỗi tuần, tự hỏi: "Tuần này em học được gì mới và đã áp dụng vào việc gì?" Nếu không có câu trả lời → đó là tín hiệu cần chú ý.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RULE 9 -->
+        <div class="section">
+            <div class="section-header" onclick="toggleSection(this)">
+                <div class="section-header-left">
+                    <div class="rule-number">9</div>
+                    <div class="rule-title-block">
+                        <span class="rule-label">Kỷ luật & Giờ giấc</span>
+                        <span class="rule-name">HIGH STANDARD — Tiêu chuẩn cao từ những việc nhỏ</span>
+                    </div>
+                </div>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div class="section-content">
+                <div class="content-body">
+                    <p><strong>Đúng giờ</strong> không phải là đến lúc 8:00, mà là 8:00 đã sẵn sàng mở máy làm việc. Trễ deadline 1 phút cũng là trễ.</p>
+                    <p><strong>Gửi file</strong> bắt buộc phải đúng tên format chuẩn. <strong>Gửi link</strong> bắt buộc phải mở quyền truy cập (Access) trước. Không bắt người nhận phải đi xin quyền hay hỏi lại.</p>
+                    <div class="do-dont">
+                        <div class="do-box">
+                            <div class="label">✅ Đúng</div>
+                            File tên: <em>YYYYMMDD_TenFile_v1.xlsx</em><br>Link Google Drive đã set "Anyone with the link" trước khi gửi.
+                        </div>
+                        <div class="dont-box">
+                            <div class="label">❌ Sai</div>
+                            Gửi file tên "Untitled" hoặc link Drive báo "Yêu cầu quyền truy cập" — người nhận mất thêm 5 phút chờ.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <strong>⚡ KIÊN TRÌ & KỶ LUẬT LÀ KHỞI ĐẦU CỦA NGƯỜI THÀNH CÔNG</strong><br><br>
+            <strong>Last updated:</strong> Tháng 6/2026 &nbsp;|&nbsp;
+            <strong>Owner:</strong> People & Organization Team &nbsp;|&nbsp;
+            <strong>Version:</strong> 1.0
+        </div>
+
+    </div>
+
+    <script>
+        function toggleSection(header) {
+            const section = header.parentElement;
+            section.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
